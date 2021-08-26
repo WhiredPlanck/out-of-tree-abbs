@@ -1,0 +1,48 @@
+abinfo 'Extracting data.tar.xz...'
+bsdtar -xvpf data.tar.xz
+
+abinfo 'Patching the binary internal paths...'
+sed -i 's|/opt/kingsoft/wps-office|/usr/lib|' "${SRCDIR}"/usr/bin/et
+sed -i 's|/opt/kingsoft/wps-office|/usr/lib|' "${SRCDIR}"/usr/bin/wp*
+
+abinfo 'Processing mimetype icons...'
+for f in "${SRCDIR}"/usr/share/icons/hicolor/*; do
+    if [ -e ${f}/mimetypes/wps-office2019-etmain.png ]; then
+        mkdir -pv ${f}/apps
+        cp -pv ${f}/mimetypes/wps-office2019* ${f}/apps
+    fi
+done
+
+abinfo 'Processing the libraries...'
+install -dv "${PKGDIR}/usr/lib"
+cp -rv "${SRCDIR}"/opt/kingsoft/wps-office/office6 "${PKGDIR}/usr/lib"
+find "${PKGDIR}/usr/lib/office6" -type f -exec chmod 755 {} +
+
+abinfo 'Removing unnecessary help resource...'
+rm -rv "${PKGDIR}/usr/lib/office6/mui/en_US/resource/help"
+rm -rv "${PKGDIR}/usr/lib/office6/mui/zh_CN"
+
+abinfo 'Processing the binaries...'
+install -dv "${PKGDIR}/usr/bin"
+install -m755 "${SRCDIR}"/usr/bin/* "${PKGDIR}/usr/bin"
+
+abinfo 'Processing the share files (applications, fonts, mime...)...'
+install -dv "${PKGDIR}/usr/share/applications"
+cp -rv "${SRCDIR}"/usr/share/applications/* "${PKGDIR}/usr/share/applications"
+sed -i 's/Exec=/Exec=env QT_SCREEN_SCALE_FACTORS=1 /g' "${PKGDIR}"/usr/share/applications/*.desktop
+
+install -dv "${PKGDIR}/usr/share/desktop-directories"
+cp -rv "${SRCDIR}"/usr/share/desktop-directories/* "${PKGDIR}/usr/share/desktop-directories"
+
+install -dv "${PKGDIR}/usr/share/icons"
+cp -rv "${SRCDIR}"/usr/share/icons/* "${PKGDIR}/usr/share/icons"
+
+install -Dm644 -t "${PKGDIR}/usr/share/fonts/wps-office" "${SRCDIR}"/usr/share/fonts/wps-office/*
+
+install -Dm644 -t "${PKGDIR}/etc/xdg/menus/applications-merged" "${SRCDIR}/etc/xdg/menus/applications-merged/wps-office.menu"
+
+install -dv "${PKGDIR}/usr/share/mime"
+cp -rv "${SRCDIR}"/usr/share/mime/* "${PKGDIR}/usr/share/mime"
+
+abinfo 'Installing the licenses...'
+install -Dm644 -t "${PKGDIR}/usr/share/licenses/${PKGNAME}" "${SRCDIR}"/opt/kingsoft/wps-office/office6/mui/default/*.html

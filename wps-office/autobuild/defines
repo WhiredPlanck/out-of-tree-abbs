@@ -1,0 +1,7 @@
+PKGNAME=wps-office
+PKGSEC=doc
+PKGDES="Kingsoft Office (WPS Office) CN version - an office productivity suite"
+PKGDEP="bzip2 cups fontconfig freetype gcc-runtime glib glibc glu libxcb x11-lib"
+
+ABSPLITDBG=0
+ABSTRIP=0
