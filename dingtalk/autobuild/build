@@ -1,0 +1,28 @@
+abinfo 'Extracting data.tar.xz ...'
+tar -Jxvf data.tar.xz
+
+abinfo 'Patching the paths in .desktop files and run script ...'
+sed -i 's|/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh|/usr/bin/dingtalk|g' "$SRCDIR"/opt/apps/com.alibabainc.dingtalk/entries/*/*.desktop
+sed -i 's|/opt/apps/com.alibabainc.dingtalk/files/logo.svg|dingtalk|g' "$SRCDIR"/opt/apps/com.alibabainc.dingtalk/entries/*/*.desktop
+sed -i 's|Categories=Chat|Categories=Network|g' "$SRCDIR"/opt/apps/com.alibabainc.dingtalk/entries/*/*.desktop
+sed -i 's|/opt/apps/com.alibabainc.dingtalk/files/1.0.0-Release.265|/usr/lib/dingtalk|g' "$SRCDIR"/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh
+
+abinfo 'Removing the unnecessary library ...'
+rm -rv ${SRCDIR}/opt/apps/com.alibabainc.dingtalk/files/1.0.0-Release.265/libm.so.6
+
+abinfo 'Installing the .desktop files, doc and icon ...'
+install -dv "$PKGDIR/usr/share/doc/$PKGNAME"
+cp -rv "$SRCDIR"/opt/apps/com.alibabainc.dingtalk/entries/* "$PKGDIR"/usr/share/
+cp -rv "$SRCDIR"/opt/apps/com.alibabainc.dingtalk/files/doc/com.alibabainc.dingtalk/* "$PKGDIR/usr/share/doc/$PKGNAME/"
+
+install -dv "$PKGDIR"/usr/share/pixmaps
+install -Dm644 "$SRCDIR"/opt/apps/com.alibabainc.dingtalk/files/logo.svg "$PKGDIR"/usr/share/pixmaps/dingtalk.svg
+
+abinfo 'Installing the libraries ...'
+install -dv "$PKGDIR/usr/lib/$PKGNAME"
+cp -rv "$SRCDIR"/opt/apps/com.alibabainc.dingtalk/files/1.0.0-Release.265/* "$PKGDIR/usr/lib/$PKGNAME"
+find "$PKGDIR"/usr/lib/"$PKGNAME" -name "*.so" -exec chmod 755 {} +
+
+abinfo 'Installing the binaries ...'
+install -dv "$PKGDIR"/usr/bin
+install -Dm755 "$SRCDIR"/opt/apps/com.alibabainc.dingtalk/files/Elevator.sh "$PKGDIR/usr/bin/$PKGNAME"
