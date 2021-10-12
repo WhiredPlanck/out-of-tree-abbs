@@ -2,8 +2,8 @@ abinfo 'Extracting data.tar.xz...'
 bsdtar -xvpf data.tar.xz
 
 abinfo 'Patching the binary internal paths...'
-sed -i 's|/opt/kingsoft/wps-office|/usr/lib|' "${SRCDIR}"/usr/bin/et
-sed -i 's|/opt/kingsoft/wps-office|/usr/lib|' "${SRCDIR}"/usr/bin/wp*
+sed -e 's|/opt/kingsoft/wps-office|/usr/lib|' -i "${SRCDIR}"/usr/bin/et
+sed -e 's|/opt/kingsoft/wps-office|/usr/lib|' -i "${SRCDIR}"/usr/bin/wp*
 
 abinfo 'Processing mimetype icons...'
 for f in "${SRCDIR}"/usr/share/icons/hicolor/*; do
@@ -20,7 +20,7 @@ find "${PKGDIR}/usr/lib/office6" -type f -exec chmod 755 {} +
 
 abinfo 'Removing unnecessary help resource...'
 rm -rv "${PKGDIR}/usr/lib/office6/mui/en_US/resource/help"
-rm -rv "${PKGDIR}/usr/lib/office6/mui/zh_CN"
+rm -rv "${PKGDIR}/usr/lib/office6/mui/zh_CN/resource/help"
 
 abinfo 'Processing the binaries...'
 install -dv "${PKGDIR}/usr/bin"
@@ -29,7 +29,8 @@ install -m755 "${SRCDIR}"/usr/bin/* "${PKGDIR}/usr/bin"
 abinfo 'Processing the share files (applications, fonts, mime...)...'
 install -dv "${PKGDIR}/usr/share/applications"
 cp -rv "${SRCDIR}"/usr/share/applications/* "${PKGDIR}/usr/share/applications"
-sed -i 's/Exec=/Exec=env QT_SCREEN_SCALE_FACTORS=1 /g' "${PKGDIR}"/usr/share/applications/*.desktop
+sed -e 's/Exec=/Exec=env QT_SCREEN_SCALE_FACTORS=1/g' \
+    -i "${PKGDIR}"/usr/share/applications/*.desktop
 
 install -dv "${PKGDIR}/usr/share/desktop-directories"
 cp -rv "${SRCDIR}"/usr/share/desktop-directories/* "${PKGDIR}/usr/share/desktop-directories"
