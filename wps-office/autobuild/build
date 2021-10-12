@@ -29,7 +29,7 @@ install -m755 "${SRCDIR}"/usr/bin/* "${PKGDIR}/usr/bin"
 abinfo 'Processing the share files (applications, fonts, mime...)...'
 install -dv "${PKGDIR}/usr/share/applications"
 cp -rv "${SRCDIR}"/usr/share/applications/* "${PKGDIR}/usr/share/applications"
-sed -e 's/Exec=/Exec=env QT_SCREEN_SCALE_FACTORS=1/g' \
+sed -e 's/Exec=/Exec=env QT_SCREEN_SCALE_FACTORS=1 /g' \
     -i "${PKGDIR}"/usr/share/applications/*.desktop
 
 install -dv "${PKGDIR}/usr/share/desktop-directories"
