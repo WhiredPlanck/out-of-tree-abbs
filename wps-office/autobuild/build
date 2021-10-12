@@ -24,7 +24,7 @@ rm -rv "${PKGDIR}/usr/lib/office6/mui/zh_CN/resource/help"
 
 abinfo 'Processing the binaries...'
 install -dv "${PKGDIR}/usr/bin"
-install -m755 "${SRCDIR}"/usr/bin/* "${PKGDIR}/usr/bin"
+install -vm755 "${SRCDIR}"/usr/bin/* "${PKGDIR}/usr/bin"
 
 abinfo 'Processing the share files (applications, fonts, mime...)...'
 install -dv "${PKGDIR}/usr/share/applications"
@@ -38,12 +38,12 @@ cp -rv "${SRCDIR}"/usr/share/desktop-directories/* "${PKGDIR}/usr/share/desktop-
 install -dv "${PKGDIR}/usr/share/icons"
 cp -rv "${SRCDIR}"/usr/share/icons/* "${PKGDIR}/usr/share/icons"
 
-install -Dm644 -t "${PKGDIR}/usr/share/fonts/wps-office" "${SRCDIR}"/usr/share/fonts/wps-office/*
+install -Dvm644 -t "${PKGDIR}/usr/share/fonts/wps-office" "${SRCDIR}"/usr/share/fonts/wps-office/*
 
-install -Dm644 -t "${PKGDIR}/etc/xdg/menus/applications-merged" "${SRCDIR}/etc/xdg/menus/applications-merged/wps-office.menu"
+install -Dvm644 -t "${PKGDIR}/etc/xdg/menus/applications-merged" "${SRCDIR}/etc/xdg/menus/applications-merged/wps-office.menu"
 
 install -dv "${PKGDIR}/usr/share/mime"
 cp -rv "${SRCDIR}"/usr/share/mime/* "${PKGDIR}/usr/share/mime"
 
 abinfo 'Installing the licenses...'
-install -Dm644 -t "${PKGDIR}/usr/share/licenses/${PKGNAME}" "${SRCDIR}"/opt/kingsoft/wps-office/office6/mui/default/*.html
+install -Dvm644 -t "${PKGDIR}/usr/share/licenses/${PKGNAME}" "${SRCDIR}"/opt/kingsoft/wps-office/office6/mui/default/*.html
