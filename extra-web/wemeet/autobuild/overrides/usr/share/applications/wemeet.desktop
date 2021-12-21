@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=WeMeet
+Name[zh_CN]=腾讯会议
+Name[zh_TW]=騰訊會議
+Exec=wemeet %u
+Icon=wemeet
+Type=Application
+Terminal=false
+Categories=Network;Office;
+MimeType=x-scheme-handler/wemeet;

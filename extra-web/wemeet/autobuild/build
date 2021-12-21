@@ -1,0 +1,24 @@
+abinfo 'Extracting data.tar.xz ...'
+tar -Jxvf data.tar.xz
+
+abinfo 'Removing bundled desktop file ...'
+rm -rv "$SRCDIR"/usr/share/applications/wemeetapp.desktop
+
+abinfo 'Installing libraries and resources ...'
+mkdir -pv "$PKGDIR"/usr/lib
+cp -rv "$SRCDIR"/opt/wemeet "$PKGDIR"/usr/lib
+find "$PKGDIR"/usr/lib/wemeet -type f -exec chmod -v 755 {} +
+
+abinfo 'Installing icons ...'
+mkdir -pv "$PKGDIR"/usr/share/
+for f in "$PKGDIR"/usr/lib/wemeet/icons/hicolor/*; do
+    if [ -e ${f}/mimetypes/wemeetapp.png ]; then
+        mkdir -pv ${f}/apps
+        install -Dvm644 ${f}/mimetypes/wemeetapp.png ${f}/apps/wemeet.png
+    fi
+done
+mv -v "$PKGDIR"/usr/lib/wemeet/icons "$PKGDIR"/usr/share/
+
+abinfo 'Creating symbol link to /usr/bin/wemeet ...'
+mkdir -pv "$PKGDIR"/usr/bin
+ln -sv ../lib/wemeet/wemeetapp.sh "$PKGDIR"/usr/bin/wemeet

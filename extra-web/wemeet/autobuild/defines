@@ -1,0 +1,9 @@
+PKGNAME=wemeet
+PKGSEC=non-free/net
+PKGDES="Tencent Video Conferencing"
+PKGDEP="desktop-file-utils x11-lib nss pulseaudio"
+
+ABSTRIP=0
+ABSPLITDBG=0
+
+FAIL_ARCH="!(amd64)"

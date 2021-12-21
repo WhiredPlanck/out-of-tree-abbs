@@ -1,0 +1,3 @@
+VER=2.8.0.1
+SRCS="tbl::https://updatecdn.meeting.qq.com/cos/196cdf1a3336d5dca56142398818545f/TencentMeeting_0300000000_${VER}_x86_64.publish.deb"
+CHKSUMS="sha256::2d63cf2c367b6158b137ec5af85a89a3974cf915bf01933d9f0db3f5d8a02317"
