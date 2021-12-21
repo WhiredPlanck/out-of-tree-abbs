@@ -1,5 +1,5 @@
 PKGNAME=wps-office
-PKGSEC=doc
+PKGSEC=non-free/doc
 PKGDES="An office productivity suite producted by Kingsoft Office"
 PKGDEP="bzip2 cups fontconfig freetype gcc-runtime glib glibc glu libxcb x11-lib"
 
