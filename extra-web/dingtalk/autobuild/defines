@@ -1,5 +1,5 @@
 PKGNAME=dingtalk
-PKGSEC=web
+PKGSEC=non-free/web
 PKGDES="A free communication and collaboration multi-cilent platform for Chinese companies, designed by Alibaba Group"
 PKGDEP=""
 
