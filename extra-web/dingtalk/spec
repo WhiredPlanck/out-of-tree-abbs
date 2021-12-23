@@ -1,5 +1,5 @@
-_MAJOR_VER=1.0.0
-_RELEASE_VER=265
+_MAJOR_VER=1.2.0
+_RELEASE_VER=132
 VER=${_MAJOR_VER}.${_RELEASE_VER}
-SRCS="tbl::http://127.0.0.1:8080/com.alibabainc.dingtalk_${VER}_amd64.deb"
-CHKSUMS="sha256::2698a98137b52b2bedb5b5ca8177f320de676a6ea5f3097b6270d82dc7212032"
+SRCS="tbl::https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_$VER_amd64.deb"
+CHKSUMS="sha512::03d0ed86125297de547be4f56e0757c098762a25eb246e72fc98061a244e73096fbc5a59974412b7945f58c733d686dcbccdd0f08492dc6050edff9ab49226e5"
